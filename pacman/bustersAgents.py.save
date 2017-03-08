@@ -431,30 +431,8 @@ class BasicAgentAA(BustersAgent):
 
         data = data + str(num_walls) + ","
 
-        #Obtenemos la puntuacion actual
+        #Obtenemos la puntuacion
         data = data + str(gameState.getScore()) + ","
-
-        #Obtenemos la puntuación en el tick siguiente
-        future_score = gameState.getScore() - 1
-
-        current_min = 1000000
-        for i in range(1, gameState.getNumAgents()):
-
-            # Calculmos la distancia manhattan al fantasma i.
-            pos_ghost = gameState.data.agentStates[i].getPosition()
-
-            distance = self.distancer.getDistance(pos_pac, pos_ghost)
-
-            #Vamos almacenando el fantasma mas cercano
-            if (distance < current_min):
-                current_min = distance
-
-        #Si hay algun fantasma a distancia 1, la puntuacion aumentara en 100
-        if (current_min == 1):
-            future_score = future_score + 100
-
-        #Guardamos la puntuacion futura
-        data = data + str(future_score)
 
         #Obtenemos el movimiento anterior
         data = data + str(gameState.data.agentStates[0].getDirection()) + ","
@@ -548,7 +526,9 @@ class BasicAgentAA(BustersAgent):
 
                 #Calculamos la distancia (MazeDistance) al fantasma mas cercano tras hacer una accion.
                 newPos = Actions.getSuccessor(pacmanPos, action)
+		
 
+		
                 newDistance = self.distancer.getDistance(newPos, gameState.data.agentStates[index].getPosition())
 
                 #Vamos almacenando la accion que mas nos acerque.
