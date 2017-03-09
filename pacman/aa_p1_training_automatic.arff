@@ -1,0 +1,33 @@
+@RELATION pacman
+
+@ATTRIBUTE pacx numeric
+@ATTRIBUTE pacy numeric
+@ATTRIBUTE legal_north {true, false}
+@ATTRIBUTE legal_east {true, false}
+@ATTRIBUTE legal_south {true, false}
+@ATTRIBUTE legal_west {true, false}
+@ATTRIBUTE g1_x NUMERIC
+@ATTRIBUTE g1_y NUMERIC
+@ATTRIBUTE g2_x NUMERIC
+@ATTRIBUTE g2_y NUMERIC
+@ATTRIBUTE g3_x NUMERIC
+@ATTRIBUTE g3_y NUMERIC
+@ATTRIBUTE g4_x NUMERIC
+@ATTRIBUTE g4_y NUMERIC
+@ATTRIBUTE g1_relPos {0,1,2,3,4,5,6,7,8}
+@ATTRIBUTE g2_relPos {0,1,2,3,4,5,6,7,8}
+@ATTRIBUTE g3_relPos {0,1,2,3,4,5,6,7,8}
+@ATTRIBUTE g4_relPos {0,1,2,3,4,5,6,7,8}
+@ATTRIBUTE g1_dis NUMERIC
+@ATTRIBUTE g2_dis NUMERIC
+@ATTRIBUTE g3_dis NUMERIC
+@ATTRIBUTE g4_dis NUMERIC
+@ATTRIBUTE num_walls NUMERIC
+@ATTRIBUTE alive_ghosts NUMERIC
+@ATTRIBUTE score NUMERIC
+@ATTRIBUTE future_score NUMERIC
+@ATTRIBUTE future_alive_ghosts NUMERIC
+@ATTRIBUTE last_action {Stop, North, East, South, West}
+@ATTRIBUTE action {North, East, South, West}
+
+@DATA
