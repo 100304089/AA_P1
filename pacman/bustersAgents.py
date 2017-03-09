@@ -245,7 +245,10 @@ class BasicAgentAA(BustersAgent):
                 + "@ATTRIBUTE g3_dis NUMERIC\n" \
                 + "@ATTRIBUTE g4_dis NUMERIC\n" \
                 + "@ATTRIBUTE num_walls NUMERIC\n" \
+                + "@ATTRIBUTE alive_ghosts NUMERIC\n" \
                 + "@ATTRIBUTE score NUMERIC\n" \
+                + "@ATTRIBUTE future_score NUMERIC\n" \
+                + "@ATTRIBUTE future_alive_ghosts NUMERIC\n" \
                 + "@ATTRIBUTE last_action {Stop, North, East, South, West}\n" \
                 + "@ATTRIBUTE action {North, East, South, West}\n\n" \
                 + "@DATA\n"
@@ -333,7 +336,10 @@ class BasicAgentAA(BustersAgent):
             + "@ATTRIBUTE g3_dis NUMERIC\n" \
             + "@ATTRIBUTE g4_dis NUMERIC\n" \
             + "@ATTRIBUTE num_walls NUMERIC\n" \
+            + "@ATTRIBUTE alive_ghosts NUMERIC\n" \
             + "@ATTRIBUTE score NUMERIC\n" \
+            + "@ATTRIBUTE future_score NUMERIC\n" \
+            + "@ATTRIBUTE future_alive_ghosts NUMERIC\n" \
             + "@ATTRIBUTE last_action {Stop, North, East, South, West}\n" \
             + "@ATTRIBUTE action {North, East, South, West}\n\n" \
             + "@DATA\n"
@@ -352,22 +358,22 @@ class BasicAgentAA(BustersAgent):
         #Obtenemos la posicion del pacman
         data = data + str(gameState.data.agentStates[0].getPosition()[0]) + "," + str(gameState.data.agentStates[0].getPosition()[1]) + ","   
 
-        #Obtenemos los movimientos legales, descartando el STOP.
+        #Obtenemos los movimientos legales, descartando el STOP. -------------------------------------------------------
         for action in actions:
             if action in legal:
                 data = data + "true,"
             else:
                 data = data + "false,"
 
-        #Obtenemos la posicion del pacman (x,y)
+        #Obtenemos la posicion del pacman (x,y) ------------------------------------------------------------------------
         pos_pac = gameState.data.agentStates[0].getPosition()
 
-        #Obtenemos las posiciones de los fantasmas
+        #Obtenemos las posiciones de los fantasmas ---------------------------------------------------------------------
         for i in range(1, gameState.getNumAgents()):
 
             data = data + str(gameState.data.agentStates[i].getPosition()[0]) + "," + str(gameState.data.agentStates[i].getPosition()[1]) + ","
 
-        #Obtenemos las posiciones relativas de los fantasmas con respecto del pacman
+        #Obtenemos las posiciones relativas de los fantasmas con respecto del pacman -----------------------------------
         for i in range(1, gameState.getNumAgents()):
 
             pos_ghost = gameState.data.agentStates[i].getPosition()
@@ -398,7 +404,7 @@ class BasicAgentAA(BustersAgent):
                     data = data + "5,"
 
 
-        #Obtenemos las distancias a los fantasmas
+        #Obtenemos las distancias a los fantasmas ----------------------------------------------------------------------
         for i in range(1, gameState.getNumAgents()):
 
             #Calculmos la distancia real (mazedistance) al fantasma i
@@ -413,7 +419,7 @@ class BasicAgentAA(BustersAgent):
                 data = data + str(distance) + ","
 
 
-        #Obtenemos el numero de muros
+        #Obtenemos el numero de muros ----------------------------------------------------------------------------------
         num_walls = 0
 
         for i in range (pos_pac[0]-1, pos_pac[0]+1):
@@ -431,10 +437,18 @@ class BasicAgentAA(BustersAgent):
 
         data = data + str(num_walls) + ","
 
-        #Obtenemos la puntuacion actual
+        #Obtenemos el numero de fantasmas vivos en este tick -----------------------------------------------------------
+        alive_ghosts = 0
+        for i in gameState.getLivingGhosts():
+            if (i == True):
+                alive_ghosts += 1
+
+        data = data + str(alive_ghosts) + ","
+
+        #Obtenemos la puntuacion actual --------------------------------------------------------------------------------
         data = data + str(gameState.getScore()) + ","
 
-        #Obtenemos la puntuación en el tick siguiente
+        #Obtenemos la puntuacion en el tick siguiente ------------------------------------------------------------------
         future_score = gameState.getScore() - 1
 
         current_min = 1000000
@@ -453,16 +467,22 @@ class BasicAgentAA(BustersAgent):
         if (current_min == 1):
             future_score = future_score + 100
 
-        #Guardamos la puntuacion futura
-        data = data + str(future_score)
+        #Guardamos la puntuacion futura --------------------------------------------------------------------------------
+        data = data + str(future_score) + ","
 
-        #Obtenemos el movimiento anterior
+        #Obtenemos el numero de fantasmas vivos en el siguiente tick
+        if (current_min == 1):
+            data = data + str(alive_ghosts - 1) + ","
+        else:
+            data = data + str(alive_ghosts) + ","
+
+        #Obtenemos el movimiento anterior ------------------------------------------------------------------------------
         data = data + str(gameState.data.agentStates[0].getDirection()) + ","
 
-        #Obtenemos el movimiento que hemos realizado este turno
+        #Obtenemos el movimiento que hemos realizado este turno --------------------------------------------------------
         data = data + move
         
-        #Escrimos en el fichero la nueva linea
+        #Escrimos en el fichero la nueva linea -------------------------------------------------------------------------
         dataFile.write(data + "\n")
 
         #Cerramos el fichero.
@@ -483,9 +503,9 @@ class BasicAgentAA(BustersAgent):
 
         legal = gameState.getLegalActions(0) ##Legal position from the pacman
 
-        
+        dots = False
         #Se da prioridad a encontrar las pildoras de comida.
-        if (gameState.getNumFood() > 0):
+        if (dots):#gameState.getNumFood() > 0):
 
             minDotDistance = 10000000
 

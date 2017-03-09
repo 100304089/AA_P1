@@ -1,13 +1,12 @@
 #!/bin/bash
 
-python busters.py -p BasicAgentAA
-python busters.py -p BasicAgentAA -l 20Hunt
-python busters.py -p BasicAgentAA -l bigHunt
-python busters.py -p BasicAgentAA -l classic
-python busters.py -p BasicAgentAA -l contestClaassic
-python busters.py -p BasicAgentAA -l newmap
-python busters.py -p BasicAgentAA -l oneHunt
-python busters.py -p BasicAgentAA -l openHunt
-python busters.py -p BasicAgentAA -l smallHunt
-python busters.py -p BasicAgentAA -l testClassic
+python busters.py -p BasicAgentAA -l -t 0.01
+python busters.py -p BasicAgentAA -l bigHunt -t 0.01
+python busters.py -p BasicAgentAA -l classic -t 0.01
+python busters.py -p BasicAgentAA -l contestClaassic -t 0.01
+python busters.py -p BasicAgentAA -l newmap -t 0.01
+python busters.py -p BasicAgentAA -l oneHunt -t 0.01
+python busters.py -p BasicAgentAA -l openHunt -t 0.01
+python busters.py -p BasicAgentAA -l smallHunt -t 0.01
+python busters.py -p BasicAgentAA -l testClassic -t 0.01
 
