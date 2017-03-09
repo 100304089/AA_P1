@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd ..
+
 python busters.py -p BasicAgentAA -l -t 0.01
 python busters.py -p BasicAgentAA -l bigHunt -t 0.01
 python busters.py -p BasicAgentAA -l classic -t 0.01
