@@ -345,7 +345,10 @@ class BasicAgentAA(BustersAgent):
             + "@DATA\n"
 
         #Obtenemos el path del fichero de datos que hemos definido.
-        path = os.getcwd() + "/all.data.pacman.arff"
+        #path = os.getcwd() + "/all.data.pacman.arff"
+        #path = os.getcwd() + "/test_sameMaps.arff"
+        #path = os.getcwd() + "/test_otherMaps.arff"
+
         #Lo abrimos con el flag 'a' para que concatene el contenido al final del fichero, y asi no sobreescribirlo.
         dataFile = open(path, 'a') 
 
