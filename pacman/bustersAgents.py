@@ -111,8 +111,7 @@ class BustersKeyboardAgent(BustersAgent, KeyboardAgent):
         BustersAgent.__init__(self, index, inference, ghostAgents)
 
 #-----------------------------------------------------------------------------------------------------
-        self.distancer = Distancer(gameState.data.layout, False)
-        self.countActions = 0
+        
 
         #Obtenemos la direccion del fichero
 
@@ -185,10 +184,12 @@ class BustersKeyboardAgent(BustersAgent, KeyboardAgent):
 
     def chooseAction(self, gameState):
         move = KeyboardAgent.getAction(self, gameState)
-        printLineData(self, gameState, move)
+        self.printLineData(gameState, move)
         return move
 
     def printLineData(self, gameState, move):
+
+        self.distancer = Distancer(gameState.data.layout, False)
 
         s = "@RELATION pacman\n\n" \
             + "@ATTRIBUTE pacx numeric\n" \
