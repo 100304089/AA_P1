@@ -110,11 +110,352 @@ class BustersKeyboardAgent(BustersAgent, KeyboardAgent):
         KeyboardAgent.__init__(self, index)
         BustersAgent.__init__(self, index, inference, ghostAgents)
 
+#-----------------------------------------------------------------------------------------------------
+        self.distancer = Distancer(gameState.data.layout, False)
+        self.countActions = 0
+
+        #Obtenemos la direccion del fichero
+
+        #Training ----------------------------------------------------------
+        # path = os.getcwd() + "/Outputs/aa_p1_training_automatic.arff"
+
+        #SameMaps -----------------------------------------------
+        # path = os.getcwd() + "/Outputs/test_sameMaps.arff"
+
+        #OtherMaps ----------------------------------------------
+        #path = os.getcwd() + "/Outputs/test_otherMaps.arff"
+        path = os.getcwd() + "/Outputs/test_otherMaps_keyboard.arff"
+
+        #Abrimos el fichero
+        f = open(path,'a')
+
+        statInfo = os.stat(path)
+        
+        if (statInfo.st_size == 0):
+            s = "@RELATION pacman\n\n" \
+                + "@ATTRIBUTE pacx numeric\n" \
+                + "@ATTRIBUTE pacy numeric\n" \
+                + "@ATTRIBUTE legal_north {true, false}\n" \
+                + "@ATTRIBUTE legal_east {true, false}\n" \
+                + "@ATTRIBUTE legal_south {true, false}\n" \
+                + "@ATTRIBUTE legal_west {true, false}\n" \
+                + "@ATTRIBUTE g1_x NUMERIC\n" \
+                + "@ATTRIBUTE g1_y NUMERIC\n" \
+                + "@ATTRIBUTE g2_x NUMERIC\n" \
+                + "@ATTRIBUTE g2_y NUMERIC\n" \
+                + "@ATTRIBUTE g3_x NUMERIC\n" \
+                + "@ATTRIBUTE g3_y NUMERIC\n" \
+                + "@ATTRIBUTE g4_x NUMERIC\n" \
+                + "@ATTRIBUTE g4_y NUMERIC\n" \
+                + "@ATTRIBUTE g1_dis NUMERIC\n" \
+                + "@ATTRIBUTE g2_dis NUMERIC\n" \
+                + "@ATTRIBUTE g3_dis NUMERIC\n" \
+                + "@ATTRIBUTE g4_dis NUMERIC\n" \
+                + "@ATTRIBUTE num_walls NUMERIC\n" \
+                + "@ATTRIBUTE alive_ghosts NUMERIC\n" \
+                + "@ATTRIBUTE score NUMERIC\n" \
+                + "@ATTRIBUTE future_score NUMERIC\n" \
+                + "@ATTRIBUTE future_alive_ghosts NUMERIC\n" \
+                + "@ATTRIBUTE last_action {Stop, North, East, South, West}\n" \
+                + "@ATTRIBUTE g1_relPos {0,1,2,3,4,5,6,7,8}\n" \
+                + "@ATTRIBUTE g2_relPos {0,1,2,3,4,5,6,7,8}\n" \
+                + "@ATTRIBUTE g3_relPos {0,1,2,3,4,5,6,7,8}\n" \
+                + "@ATTRIBUTE g4_relPos {0,1,2,3,4,5,6,7,8}\n" \
+                + "@ATTRIBUTE g1_closest {true, false}\n" \
+                + "@ATTRIBUTE g2_closest {true, false}\n" \
+                + "@ATTRIBUTE g3_closest {true, false}\n" \
+                + "@ATTRIBUTE g4_closest {true, false}\n" \
+                + "@ATTRIBUTE norht_best {true, false}\n" \
+                + "@ATTRIBUTE east_best {true, false}\n" \
+                + "@ATTRIBUTE south_best {true, false}\n" \
+                + "@ATTRIBUTE west_best {true, false}\n" \
+                + "@ATTRIBUTE action {North, East, South, West}\n\n" \
+                + "@DATA\n"
+
+            f.write(s)
+
+        f.close()
+
+
+
+    #-------------------------------------------------------------------------------------------------------
+
     def getAction(self, gameState):
         return BustersAgent.getAction(self, gameState)
 
     def chooseAction(self, gameState):
-        return KeyboardAgent.getAction(self, gameState)
+        move = KeyboardAgent.getAction(self, gameState)
+        printLineData(self, gameState, move)
+        return move
+
+    def printLineData(self, gameState, move):
+
+        s = "@RELATION pacman\n\n" \
+            + "@ATTRIBUTE pacx numeric\n" \
+            + "@ATTRIBUTE pacy numeric\n" \
+            + "@ATTRIBUTE legal_north {true, false}\n" \
+            + "@ATTRIBUTE legal_east {true, false}\n" \
+            + "@ATTRIBUTE legal_south {true, false}\n" \
+            + "@ATTRIBUTE legal_west {true, false}\n" \
+            + "@ATTRIBUTE g1_x NUMERIC\n" \
+            + "@ATTRIBUTE g1_y NUMERIC\n" \
+            + "@ATTRIBUTE g2_x NUMERIC\n" \
+            + "@ATTRIBUTE g2_y NUMERIC\n" \
+            + "@ATTRIBUTE g3_x NUMERIC\n" \
+            + "@ATTRIBUTE g3_y NUMERIC\n" \
+            + "@ATTRIBUTE g4_x NUMERIC\n" \
+            + "@ATTRIBUTE g4_y NUMERIC\n" \
+            + "@ATTRIBUTE g1_dis NUMERIC\n" \
+            + "@ATTRIBUTE g2_dis NUMERIC\n" \
+            + "@ATTRIBUTE g3_dis NUMERIC\n" \
+            + "@ATTRIBUTE g4_dis NUMERIC\n" \
+            + "@ATTRIBUTE num_walls NUMERIC\n" \
+            + "@ATTRIBUTE alive_ghosts NUMERIC\n" \
+            + "@ATTRIBUTE score NUMERIC\n" \
+            + "@ATTRIBUTE future_score NUMERIC\n" \
+            + "@ATTRIBUTE future_alive_ghosts NUMERIC\n" \
+            + "@ATTRIBUTE last_action {Stop, North, East, South, West}\n" \
+            + "@ATTRIBUTE g1_relPos {0,1,2,3,4,5,6,7,8}\n" \
+            + "@ATTRIBUTE g2_relPos {0,1,2,3,4,5,6,7,8}\n" \
+            + "@ATTRIBUTE g3_relPos {0,1,2,3,4,5,6,7,8}\n" \
+            + "@ATTRIBUTE g4_relPos {0,1,2,3,4,5,6,7,8}\n" \
+            + "@ATTRIBUTE g1_closest {true, false}\n" \
+            + "@ATTRIBUTE g2_closest {true, false}\n" \
+            + "@ATTRIBUTE g3_closest {true, false}\n" \
+            + "@ATTRIBUTE g4_closest {true, false}\n" \
+            + "@ATTRIBUTE norht_best {true, false}\n" \
+            + "@ATTRIBUTE east_best {true, false}\n" \
+            + "@ATTRIBUTE south_best {true, false}\n" \
+            + "@ATTRIBUTE west_best {true, false}\n" \
+            + "@ATTRIBUTE action {North, East, South, West}\n\n" \
+            + "@DATA\n"
+
+        #Obtenemos el path del fichero de datos que hemos definido.
+        # Training ----------------------------------------------------------
+        # path = os.getcwd() + "/Outputs/aa_p1_training_automatic.arff"
+
+        # SameMaps -----------------------------------------------
+        # path = os.getcwd() + "/Outputs/test_sameMaps.arff"
+
+        # OtherMaps ----------------------------------------------
+        #path = os.getcwd() + "/Outputs/test_otherMaps.arff"
+        path = os.getcwd() + "/Outputs/test_otherMaps_keyboard.arff"
+
+        #Lo abrimos con el flag 'a' para que concatene el contenido al final del fichero, y asi no sobreescribirlo.
+        dataFile = open(path, 'a')
+
+        data = ""
+
+
+        '''
+        ATRIBUTOS BASICOS ----------------------------------------------------------------------------------------------
+        '''
+
+
+        #Obtenemos la posicion del pacman ------------------------------------------ 1, 2 ------------------------------
+        data = data + str(gameState.data.agentStates[0].getPosition()[0]) + "," + str(gameState.data.agentStates[0].getPosition()[1]) + ","   
+
+        #Obtenemos los movimientos legales, descartando el STOP. -------------------- 3, 4, 5, 6 -----------------------
+
+        # Guardamos true para aquellas acciones que sean legales y false para aquellas que no (siempre en el mismo orden)
+        actions = [Directions.NORTH, Directions.EAST, Directions.SOUTH, Directions.WEST]
+        legal = gameState.getLegalPacmanActions()
+
+        for action in actions:
+            if action in legal:
+                data = data + "true,"
+            else:
+                data = data + "false,"
+
+        #Obtenemos la posicion del pacman (x,y)
+        pos_pac = gameState.data.agentStates[0].getPosition()
+
+        #Obtenemos las posiciones de los fantasmas ---------------------------- 7, 8, 9, 10, 11, 12, 13, 14 ------------
+        for i in range(1, gameState.getNumAgents()):
+
+            data = data + str(gameState.data.agentStates[i].getPosition()[0]) + "," + str(gameState.data.agentStates[i].getPosition()[1]) + ","
+
+
+        #Obtenemos las distancias a los fantasmas ------------------------------ 15, 16, 17, 18 ------------------------
+        for i in range(1, gameState.getNumAgents()):
+
+            #Calculmos la distancia real (mazedistance) al fantasma i
+            pos_ghost = gameState.data.agentStates[i].getPosition()
+
+            distance = self.distancer.getDistance(pos_pac, pos_ghost)
+
+            #Si la distancia es mayor a 1000 significa que el fantasma en cuestion ya ha sido comido
+            if (distance > 1000):
+                data = data + ("-1,")
+            else:
+                data = data + str(distance) + ","
+
+
+        #Obtenemos el numero de muros ---------------------------------------- 19 --------------------------------------
+        num_walls = 0
+
+        for i in range (pos_pac[0]-1, pos_pac[0]+1):
+
+            if i < 0 or i >= gameState.data.layout.width:
+                continue
+
+            for j in range (pos_pac[1]-1, pos_pac[1]+1):
+
+                if j < 0 or j >= gameState.data.layout.height:
+                    continue
+
+                if gameState.getWalls()[i][j] == "%":
+                    num_walls += 1
+
+        data = data + str(num_walls) + ","
+
+        #Obtenemos el numero de fantasmas vivos en este tick ----------------- 20 ---------------------------------------
+        alive_ghosts = 0
+        for i in gameState.getLivingGhosts():
+            if (i == True):
+                alive_ghosts += 1
+
+        data = data + str(alive_ghosts) + ","
+
+        #Obtenemos la puntuacion actual --------------------------------------- 21 -------------------------------------
+        data = data + str(gameState.getScore()) + ","
+
+        #Obtenemos la puntuacion en el tick siguiente -------------------------- 22 ------------------------------------
+        future_score = gameState.getScore() - 1
+
+        current_min = 1000000
+        for i in range(1, gameState.getNumAgents()):
+
+            # Calculmos la distancia manhattan al fantasma i.
+            pos_ghost = gameState.data.agentStates[i].getPosition()
+
+            distance = self.distancer.getDistance(pos_pac, pos_ghost)
+
+            #Vamos almacenando el fantasma mas cercano
+            if (distance < current_min):
+                current_min = distance
+
+        #Si hay algun fantasma a distancia 1, la puntuacion aumentara en 100
+        if (current_min == 1):
+            future_score = future_score + 100
+
+        #Guardamos la puntuacion futura ----------------------------------- 23 -----------------------------------------
+        data = data + str(future_score) + ","
+
+        #Obtenemos el numero de fantasmas vivos en el siguiente tick
+        if (current_min == 1):
+            data = data + str(alive_ghosts - 1) + ","
+        else:
+            data = data + str(alive_ghosts) + ","
+
+        #Obtenemos el movimiento anterior ---------------------------------- 24 ----------------------------------------
+        data = data + str(gameState.data.agentStates[0].getDirection()) + ","
+
+
+
+        '''
+        MEJORAS ATRIBUTOS -----------------------------------------------------------------------------------------------
+        '''
+
+        # Obtenemos las posiciones relativas de los fantasmas con respecto del pacman ----- 25, 26, 27, 28 -------------
+        for i in range(1, gameState.getNumAgents()):
+
+            pos_ghost = gameState.data.agentStates[i].getPosition()
+
+            # Si el fantasma esta en la misma posicion lo indicamos como 0
+            if (pos_ghost == pos_pac):
+                data = data + "0,"
+
+            # Determinamos las posiciones relativas
+            # {NORTH = 1, NORTH_EAST = 2, EAST = 3, SOUTH_EAST = 4, SOUTH = 5, SOUTH_WEST = 6, WEST = 7, NORTH_WEST = 8}.
+            if (pos_ghost[0] > pos_pac[0]):
+                if (pos_ghost[1] > pos_pac[1]):
+                    data = data + "2,"
+                elif (pos_ghost[1] < pos_pac[1]):
+                    data = data + "4,"
+                else:
+                    data = data + "3,"
+            elif (pos_ghost[0] < pos_pac[0]):
+                if (pos_ghost[1] > pos_pac[1]):
+                    data = data + "8,"
+                elif (pos_ghost[1] < pos_pac[1]):
+                    data = data + "6,"
+                else:
+                    data = data + "7,"
+            else:
+                if (pos_ghost[1] > pos_pac[1]):
+                    data = data + "8,"
+                else:
+                    data = data + "5,"
+
+
+        #Obtenemos el fantasma mas cercano. ----------------------------------------------------------------------------
+        index = -1
+        current_min = 10000000
+
+        for i in range(1, gameState.getNumAgents()):
+
+            # Calculmos la distancia manhattan al fantasma i.
+            ghostPos = gameState.data.agentStates[i].getPosition()
+
+            distance = self.distancer.getDistance(pos_pac, ghostPos)
+
+            # Nos vamos quedando con el fantasma mas cercano.
+            if (distance < current_min):
+                current_min = distance
+                index = i
+
+        for i in range(1, gameState.getNumAgents()):
+            if (i == index):
+                data = data + "true,"
+            else:
+                data = data + "false,"
+
+        #Encontramos la mejor accion -----------------------------------------------------------------------------------
+
+        newMinDistance = 100000000
+
+        best_action = Directions.NORTH
+
+        # Simulamos cada accion posible y nos quedamos con aquella que nos acerque mas
+        for action in legal:
+
+            # Calculamos la distancia (MazeDistance) al fantasma mas cercano tras hacer una accion.
+            newPos = Actions.getSuccessor(pos_pac, action)
+
+            newDistance = self.distancer.getDistance(newPos, gameState.data.agentStates[index].getPosition())
+
+            # Vamos almacenando la accion que mas nos acerque.
+            if (newDistance < newMinDistance):
+                best_action = action
+                newMinDistance = newDistance
+
+        for action in actions:
+            if (action == best_action):
+                data = data + "true,"
+            else:
+                data = data + "false,"
+
+        '''
+        ---------------------------------------------------------------------------------------------------------------
+        '''
+
+
+
+        '''
+        ESCRITURA EN FICHERO -------------------------------------------------------------------------------------------
+        '''
+
+        #Obtenemos el movimiento que hemos realizado este turno --------------------------------------------------------
+        data = data + move
+
+        #Escrimos en el fichero la nueva linea -------------------------------------------------------------------------
+        dataFile.write(data + "\n")
+
+        #Cerramos el fichero.
+        dataFile.close()
+
+        return data    
 
 from distanceCalculator import Distancer
 from game import Actions
