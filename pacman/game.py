@@ -611,9 +611,6 @@ class Game:
         numAgents = len( self.agents )
         step = 0
 
-        #Abrimos el fichero en modo Append.
-        f = open("/home/dot/Escritorio/pacman_output", "a")
-
         #from bustersAgents import basicAgentAA
         while not self.gameOver:
             # Fetch the next agent
@@ -721,7 +718,6 @@ class Game:
             if _BOINC_ENABLED:
                 boinc.set_fraction_done(self.getProgress())
 
-        f.close()           
 
         # inform a learning agent of the game result
         for agentIndex, agent in enumerate(self.agents):
