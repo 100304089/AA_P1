@@ -220,7 +220,8 @@ class BasicAgentAA(BustersAgent):
         # path = os.getcwd() + "/Outputs/test_sameMaps.arff"
 
         #OtherMaps ----------------------------------------------
-        path = os.getcwd() + "/Outputs/test_otherMaps.arff"
+        #path = os.getcwd() + "/Outputs/test_otherMaps.arff"
+        path = os.getcwd() + "/Outputs/test_otherMaps_keyboard.arff"
 
         #Abrimos el fichero
         f = open(path,'a')
@@ -375,7 +376,8 @@ class BasicAgentAA(BustersAgent):
         # path = os.getcwd() + "/Outputs/test_sameMaps.arff"
 
         # OtherMaps ----------------------------------------------
-        path = os.getcwd() + "/Outputs/test_otherMaps.arff"
+        #path = os.getcwd() + "/Outputs/test_otherMaps.arff"
+        path = os.getcwd() + "/Outputs/test_otherMaps_keyboard.arff"
 
         #Lo abrimos con el flag 'a' para que concatene el contenido al final del fichero, y asi no sobreescribirlo.
         dataFile = open(path, 'a')
