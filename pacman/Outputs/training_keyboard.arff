@@ -36,7 +36,7 @@
 @ATTRIBUTE east_best {true, false}
 @ATTRIBUTE south_best {true, false}
 @ATTRIBUTE west_best {true, false}
-@ATTRIBUTE action {North, East, South, West}
+@ATTRIBUTE action {North, East, South, West, Stop}
 
 @DATA
 14,3,false,true,false,true,10,15,13,15,14,15,17,15,34,31,30,33,0,4,0,-1,4,Stop,8,8,8,2,false,false,true,false,false,true,false,false,Stop
