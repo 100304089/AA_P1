@@ -125,7 +125,9 @@ class BustersKeyboardAgent(BustersAgent, KeyboardAgent):
         #path = os.getcwd() + "/Outputs/test_otherMaps.arff"
         #path = os.getcwd() + "/Outputs/training_keyboard.arff"
         #path = os.getcwd() + "/Outputs/test_samemaps_keyboard.arff"
-        path = os.getcwd() + "/Outputs/test_otherMaps_keyboard.arff"
+        #path = os.getcwd() + "/Outputs/test_otherMaps_keyboard.arff"
+
+        path = os.getcwd() + "/Outputs/training_tutorial1.arff"
 
         #Abrimos el fichero
         f = open(path,'a')
@@ -244,7 +246,9 @@ class BustersKeyboardAgent(BustersAgent, KeyboardAgent):
         #path = os.getcwd() + "/Outputs/test_otherMaps.arff"
         #path = os.getcwd() + "/Outputs/training_keyboard.arff" #classic, 20hunt, bigHunt, contestClassic, openClassic
         #path = os.getcwd() + "/Outputs/test_samemaps_keyboard.arff" #classic, 20hunt, bigHunt, contestClassic, openClassic
-        path = os.getcwd() + "/Outputs/test_otherMaps_keyboard.arff" #capsuleClassic, minimaxClassic, sixHunt, smallHunt, openHunt
+        #path = os.getcwd() + "/Outputs/test_otherMaps_keyboard.arff" #capsuleClassic, minimaxClassic, sixHunt, smallHunt, openHunt
+
+        path = os.getcwd() + "/Outputs/training_tutorial1.arff"
 
         #Lo abrimos con el flag 'a' para que concatene el contenido al final del fichero, y asi no sobreescribirlo.
         dataFile = open(path, 'a')
@@ -567,7 +571,11 @@ class BasicAgentAA(BustersAgent):
 
         #OtherMaps ----------------------------------------------
         #path = os.getcwd() + "/Outputs/test_otherMaps.arff"
-        path = os.getcwd() + "/Outputs/test_otherMaps_keyboard.arff"
+        #path = os.getcwd() + "/Outputs/test_otherMaps_keyboard.arff"
+
+        #path = os.getcwd() + "/Outputs/training_tutorial1.arff"
+        #path = os.getcwd() + "/Outputs/test_samemaps_tutorial1.arff" #mimapa, testClassic, sixHunt, smallHunt, openHunt
+        path = os.getcwd() + "/Outputs/test_othermaps_tutorial1.arff"
 
         #Abrimos el fichero
         f = open(path,'a')
@@ -723,7 +731,11 @@ class BasicAgentAA(BustersAgent):
 
         # OtherMaps ----------------------------------------------
         #path = os.getcwd() + "/Outputs/test_otherMaps.arff"
-        path = os.getcwd() + "/Outputs/test_otherMaps_keyboard.arff"
+        #path = os.getcwd() + "/Outputs/test_otherMaps_keyboard.arff"
+
+        #path = os.getcwd() + "/Outputs/training_tutorial1.arff" #mimapa, testClassic, sixHunt, smallHunt, openHunt
+        #path = os.getcwd() + "/Outputs/test_samemaps_tutorial1.arff" #mimapa, testClassic, sixHunt, smallHunt, openHunt
+        path = os.getcwd() + "/Outputs/test_othermaps_tutorial1.arff" #classic, 20hunt, bigHunt, oneHunt, openClassic
 
         #Lo abrimos con el flag 'a' para que concatene el contenido al final del fichero, y asi no sobreescribirlo.
         dataFile = open(path, 'a')
