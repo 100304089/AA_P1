@@ -214,7 +214,7 @@ class BasicAgentAA(BustersAgent):
         #Obtenemos la direccion del fichero
 
         #Training ----------------------------------------------------------
-        # path = os.getcwd() + "/Outputs/aa_p1_training_automatic.arff"
+        # path = os.getcwd() + "/Outputs/raining_implemented.arff"
 
         #SameMaps -----------------------------------------------
         path = os.getcwd() + "/Outputs/test_sameMaps.arff"
@@ -369,7 +369,7 @@ class BasicAgentAA(BustersAgent):
 
         #Obtenemos el path del fichero de datos que hemos definido.
         # Training ----------------------------------------------------------
-        # path = os.getcwd() + "/Outputs/aa_p1_training_automatic.arff"
+        # path = os.getcwd() + "/Outputs/training_implemented.arff"
 
         # SameMaps -----------------------------------------------
         path = os.getcwd() + "/Outputs/test_sameMaps.arff"
